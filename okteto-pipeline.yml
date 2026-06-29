@@ -1,0 +1,16 @@
+# Zelretch - UserBot
+# Okteto pipeline manifest.
+build:
+  zelretch:
+    context: .
+    dockerfile: Dockerfile
+deploy:
+  - name: zelretch
+    image: zelretch
+    public: true
+    ports:
+      - 7860
+    env:
+      HOST: 0.0.0.0
+      PORT: 7860
+      HOSTED_ON: okteto

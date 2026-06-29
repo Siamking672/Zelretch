@@ -1,0 +1,22 @@
+# Zelretch - UserBot
+# Optional requirements - installed best-effort by the installer.
+
+# Media processing
+ffmpeg-python
+Pillow
+mutagen
+
+# Search / scraping
+beautifulsoup4
+lxml
+wikipedia
+googlesearch-python
+
+# Voice chat (not supported on Hugging Face Spaces)
+pytgcalls
+
+# Misc
+pygments
+psutil
+speedtest-cli
+shazamio

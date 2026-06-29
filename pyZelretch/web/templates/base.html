@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{% block title %}Zelretch Setup Wizard{% endblock %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">Z</span>
+    <span class="brand-name">Zelretch</span>
+    <span class="brand-tag">Setup Wizard</span>
+  </div>
+  <nav class="steps">
+    <a href="/core"    class="step {% if step == 'core' %}active{% endif %}">1. Core</a>
+    <a href="/restore" class="step {% if step == 'restore' %}active{% endif %}">1b. Restore</a>
+    <a href="/session" class="step {% if step == 'session' %}active{% endif %}">2. Session</a>
+    <a href="/deploy"  class="step {% if step == 'deploy' %}active{% endif %}">3. Deploy</a>
+  </nav>
+</header>
+
+<main class="container">
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  Zelretch - Kurigram UserBot &middot; Based on Ultroid (C) TeamUltroid &middot; AGPLv3
+  &middot; State: <code>{{ state }}</code>
+  &middot; <a href="/health">health</a> &middot; <a href="/api/state">api</a> &middot; <a href="/reset">reset</a>
+</footer>
+</body>
+</html>

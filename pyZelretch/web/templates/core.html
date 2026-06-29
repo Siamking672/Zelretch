@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Zelretch &middot; Core Variables{% endblock %}
+{% block content %}
+<h1>Step 1 - Core Variables</h1>
+<p>These values identify your bot to Telegram and pick where Zelretch stores
+its configuration. Secrets are masked once saved.</p>
+
+<form method="post" action="/core" autocomplete="off">
+  <fieldset>
+    <legend>Telegram Credentials</legend>
+    {% for entry in schema if entry.category == 'core' %}
+      <label>{{ entry.label }}
+        {% if entry.required %}<span class="req">*</span>{% endif %}
+        <input type="{{ 'password' if entry.secret else ('number' if entry.cast == 'int' else 'text') }}"
+               name="{{ entry.key }}"
+               value="{{ vars[entry.key] if vars[entry.key] and not entry.secret else '' }}"
+               placeholder="{{ entry.placeholder or '' }}"
+               {% if entry.required %}required{% endif %}>
+        <small>{{ entry.help }}</small>
+        {% if errors and errors[entry.key] %}<small class="err">{{ errors[entry.key] }}</small>{% endif %}
+      </label>
+    {% endfor %}
+  </fieldset>
+
+  <fieldset>
+    <legend>Database</legend>
+    <label>Database Backend <span class="req">*</span>
+      <select name="DATABASE_TYPE">
+        {% for choice in ['local', 'mongo', 'redis', 'sql'] %}
+          <option value="{{ choice }}" {% if vars.DATABASE_TYPE == choice %}selected{% endif %}>
+            {{ choice }}
+          </option>
+        {% endfor %}
+      </select>
+      <small>local = JSON file (no setup). mongo / redis / sql = external DB (recommended for persistence).</small>
+    </label>
+
+    <div class="db-fields">
+      <label>MongoDB URI
+        <input type="password" name="MONGO_URI" value=""
+               placeholder="{{ vars.MONGO_URI if vars.MONGO_URI else 'mongodb+srv://...' }}"
+               autocomplete="off">
+        <small>{{ schema | selectattr('key', 'equalto', 'MONGO_URI') | map(attribute='help') | first }}</small>
+      </label>
+      <label>Redis URI (host:port)
+        <input type="text" name="REDIS_URI" value="{{ vars.REDIS_URI or '' }}"
+               placeholder="redis-host.example.com:12345">
+      </label>
+      <label>Redis Password
+        <input type="password" name="REDIS_PASSWORD" value="" autocomplete="off">
+      </label>
+      <label>PostgreSQL URL
+        <input type="password" name="DATABASE_URL" value=""
+               placeholder="{{ vars.DATABASE_URL if vars.DATABASE_URL else 'postgres://...' }}"
+               autocomplete="off">
+      </label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Deployment</legend>
+    {% for entry in schema if entry.category == 'deployment' %}
+      <label>{{ entry.label }}
+        <input type="{{ 'password' if entry.secret else 'text' }}"
+               name="{{ entry.key }}"
+               value="{{ vars[entry.key] if vars[entry.key] and not entry.secret else '' }}"
+               placeholder="{{ entry.placeholder or '' }}">
+        <small>{{ entry.help }}</small>
+      </label>
+    {% endfor %}
+  </fieldset>
+
+  <div class="actions">
+    <button type="submit" class="primary">Save &amp; Continue &rarr;</button>
+    <a href="/restore" class="link-btn">I have an existing DB</a>
+  </div>
+</form>
+{% endblock %}

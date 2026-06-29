@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Zelretch &middot; Deploy{% endblock %}
+{% block content %}
+<h1>Step 3 - Deploy</h1>
+<p>Review your configuration below. The Deploy button will only start the bot
+once every required value passes validation.</p>
+
+<table class="review">
+  <thead><tr><th>Variable</th><th>Value</th><th>Status</th></tr></thead>
+  <tbody>
+    {% for entry in schema %}
+      <tr>
+        <td>{{ entry.label }}<br><code>{{ entry.key }}</code></td>
+        <td>
+          {% if entry.secret and vars[entry.key] %}********
+          {% elif vars[entry.key] is sameas false %}false
+          {% elif vars[entry.key] is sameas true %}true
+          {% else %}{{ vars[entry.key] or '-' }}{% endif %}
+        </td>
+        <td>
+          {% if entry.required and not vars[entry.key] %}
+            <span class="badge bad">missing</span>
+          {% elif entry.required %}
+            <span class="badge ok">ok</span>
+          {% else %}
+            <span class="badge">optional</span>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if errors %}
+<div class="errors">
+  {% for k, v in errors.items() %}<p><strong>{{ k }}:</strong> {{ v }}</p>{% endfor %}
+</div>
+{% endif %}
+
+<form method="post" action="/deploy">
+  <div class="actions">
+    {% if ready %}
+      <button type="submit" class="primary big">🚀 Deploy Zelretch</button>
+    {% else %}
+      <button type="submit" class="primary big" disabled title="Complete the previous steps first">
+        Deploy (locked)
+      </button>
+    {% endif %}
+    <a href="/session" class="link-btn">&larr; Back to Session</a>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Zelretch &middot; Deployed{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>🚀 Zelretch is starting...</h1>
+  <p>Your configuration has been saved and the bot is booting up. This page
+  can be closed. The bot will post a "ready" message to your log channel
+  once initialisation is complete.</p>
+  <p>Type <code>.help</code> in any chat where Zelretch is present to see
+  the list of available commands.</p>
+</section>
+
+<details class="generate">
+  <summary>What happens next?</summary>
+  <ul>
+    <li>Zelretch loads every plugin in <code>plugins/</code>.</li>
+    <li>If an <code>addons/</code> folder exists next to this repo, it is loaded too.</li>
+    <li>The assistant bot (if <code>BOT_TOKEN</code> was provided) connects and registers its commands.</li>
+    <li>The log channel (if any) receives a deployment summary.</li>
+  </ul>
+</details>
+
+<details class="generate">
+  <summary>Troubleshooting</summary>
+  <ul>
+    <li>If the bot does not respond within 30 seconds, check the server logs for tracebacks.</li>
+    <li>If the session was rejected, re-run the wizard at <a href="/reset">/reset</a> and generate a new one.</li>
+    <li>If you want to switch databases later, hit <a href="/reset">/reset</a> and run the Restore flow.</li>
+  </ul>
+</details>
+{% endblock %}

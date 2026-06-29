@@ -1,0 +1,19 @@
+# Zelretch - UserBot
+# Docker Compose definition - run with `docker compose up -d`.
+
+version: "3.8"
+
+services:
+  zelretch:
+    build: .
+    container_name: zelretch
+    restart: unless-stopped
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./data:/app/data
+      - ./sessions:/app/sessions
+    environment:
+      - HOST=0.0.0.0
+      - PORT=7860
+      - HOSTED_ON=docker

@@ -1,0 +1,30 @@
+{
+    "name": "Zelretch UserBot",
+    "description": "Kurigram-based pluggable Telegram userbot - rewritten from Ultroid with a web setup wizard and one-command deployment.",
+    "logo": "https://graph.org/file/031957757a4f6a5191040.jpg",
+    "keywords": [
+        "kurigram",
+        "pyrogram",
+        "telegram",
+        "userbot",
+        "python",
+        "zelretch"
+    ],
+    "repository": "https://github.com/TeamUltroid/Ultroid",
+    "website": "https://github.com/TeamUltroid/Ultroid",
+    "success_url": "/",
+    "stack": "container",
+    "env": {
+        "HOSTED_ON": {
+            "description": "Hosting platform identifier. Use 'heroku' on Heroku.",
+            "value": "heroku",
+            "required": false
+        }
+    },
+    "formation": {
+        "zelretch": {
+            "quantity": 1,
+            "size": "eco"
+        }
+    }
+}

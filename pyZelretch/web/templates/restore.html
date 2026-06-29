@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Zelretch &middot; Restore{% endblock %}
+{% block content %}
+<h1>Restore Existing Deployment</h1>
+<p>If you have already deployed Zelretch and want to reuse your saved
+configuration, enter your existing database details below. Zelretch will
+connect, import every saved variable, and skip the rest of the wizard.</p>
+
+<form method="post" action="/restore" autocomplete="off">
+  <fieldset>
+    <legend>Database</legend>
+    <label>Database Backend <span class="req">*</span>
+      <select name="DATABASE_TYPE">
+        {% for choice in ['local', 'mongo', 'redis', 'sql'] %}
+          <option value="{{ choice }}" {% if vars.DATABASE_TYPE == choice %}selected{% endif %}>
+            {{ choice }}
+          </option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>MongoDB URI
+      <input type="password" name="MONGO_URI" autocomplete="off">
+    </label>
+    <label>Redis URI (host:port)
+      <input type="text" name="REDIS_URI">
+    </label>
+    <label>Redis Password
+      <input type="password" name="REDIS_PASSWORD" autocomplete="off">
+    </label>
+    <label>PostgreSQL URL
+      <input type="password" name="DATABASE_URL" autocomplete="off">
+    </label>
+  </fieldset>
+
+  {% if errors %}
+  <div class="errors">
+    {% for k, v in errors.items() %}<p><strong>{{ k }}:</strong> {{ v }}</p>{% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="actions">
+    <button type="submit" class="primary">Restore &amp; Continue &rarr;</button>
+    <a href="/core" class="link-btn">&larr; Back to Core</a>
+  </div>
+</form>
+{% endblock %}

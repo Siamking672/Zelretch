@@ -1,0 +1,29 @@
+# Zelretch - UserBot
+# Core requirements - installed automatically by zelretch.py on first launch.
+
+# Telegram client framework (Pyrogram v2 fork with active maintenance).
+kurigram
+
+# Web setup wizard stack.
+fastapi
+uvicorn[standard]
+jinja2
+python-multipart
+pyyaml
+
+# Database backends - the wizard picks one at setup time. Installing them all
+# up-front avoids the "install on first use" race Ultroid had.
+pymongo[srv]
+redis
+psycopg2-binary
+localdb.json
+
+# Misc utilities used by core plugins.
+python-decouple
+python-dotenv
+requests
+aiohttp
+gitpython
+telegraph
+catbox-uploader
+cloudscraper

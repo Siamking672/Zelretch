@@ -1,0 +1,56 @@
+# Zelretch - UserBot
+# English translation bundle.
+# Keys are looked up via pyZelretch.strings.get_string("key").
+
+# Common
+com_1: "Processing..."
+com_2: "Done."
+com_3: "Cancelled."
+
+# pyUltroid decorator strings
+py_d1: "You are blocked from using Zelretch."
+py_d2: "This command requires full-sudo access."
+py_d3: "This command works only in groups."
+py_d4: "Developer-only command. Use `{0}help`."
+py_d5: "Admins only."
+py_d6: "This method is not available for bot accounts."
+py_d7: "Already in a conversation - try again later."
+py_d8: "Media is locked in this chat."
+
+# Bot
+bot_1: "Zelretch - Kurigram UserBot"
+bot_2: "Repository"
+bot_3: "Repo"
+
+# Help
+help_1: "Zelretch - Available Commands"
+help_2: "Page"
+help_3: "No plugin with that name was found."
+
+# Plugin manager
+pm_1: "Loaded plugins:"
+pm_2: "Loaded addons:"
+pm_3: "Plugin `{0}` loaded successfully."
+pm_4: "Plugin `{0}` unloaded."
+pm_5: "Plugin `{0}` reloaded."
+pm_6: "Plugin `{0}` not found."
+pm_7: "Could not load plugin `{0}`: `{1}`"
+
+# AFK
+afk_1: "{0} is AFK: {1}"
+afk_2: "AFK mode disabled. {0} messages were received while away."
+
+# Tools
+tools_1: "Pong! Zelretch is online."
+tools_2: "Uptime: {0}"
+tools_3: "Ping: {0} ms"
+
+# Setup wizard (used by web UI server-side rendering)
+setup_title: "Zelretch Setup Wizard"
+setup_welcome: "Welcome to Zelretch. Complete the steps below to deploy your bot."
+setup_step_core: "Step 1 - Core Variables"
+setup_step_session: "Step 2 - Userbot Session"
+setup_step_deploy: "Step 3 - Deploy"
+setup_complete: "Setup complete. Zelretch is starting..."
+setup_invalid: "Some values are invalid. Please review the form."
+setup_restored: "Configuration restored from existing database."

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h1>Welcome to Zelretch</h1>
+  <p class="lede">A Kurigram-based pluggable Telegram userbot - rewritten from Ultroid.</p>
+  <p>Complete the three-step setup below to deploy your bot. Your configuration is
+  stored in the database you pick (not in <code>.env</code> files), so future
+  deployments can be restored simply by pointing Zelretch at the same DB.</p>
+</section>
+
+<section class="grid">
+  <a class="card" href="/core">
+    <h3>1. Core Variables</h3>
+    <p>Telegram API credentials, owner ID, and your database choice.</p>
+  </a>
+  <a class="card" href="/restore">
+    <h3>1b. Restore Existing</h3>
+    <p>Already deployed Zelretch before? Import config from your existing DB.</p>
+  </a>
+  <a class="card" href="/session">
+    <h3>2. Session</h3>
+    <p>Provide a Kurigram session string or generate one with the in-wizard tool.</p>
+  </a>
+  <a class="card" href="/deploy">
+    <h3>3. Deploy</h3>
+    <p>Review your configuration and start the bot.</p>
+  </a>
+</section>
+
+{% if errors %}
+<div class="errors">
+  {% for k, v in errors.items() %}<p><strong>{{ k }}:</strong> {{ v }}</p>{% endfor %}
+</div>
+{% endif %}
+
+{% if just_saved %}
+<div class="ok">Saved. Continue to the next step.</div>
+{% endif %}
+{% endblock %}

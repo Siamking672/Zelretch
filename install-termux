@@ -1,0 +1,22 @@
+#!/data/data/com.termux/files/usr/bin/env bash
+# Zelretch - UserBot - Termux installer
+# Copyright (C) 2021-2026 TeamUltroid (original) / Zelretch Maintainers (rewrite)
+# Licensed under the GNU Affero General Public License v3 or later.
+
+set -e
+
+echo "[zelretch] Updating Termux packages..."
+pkg update -y && pkg upgrade -y
+
+echo "[zelretch] Installing system dependencies..."
+pkg install -y python python-pip git ffmpeg libxml2 libxslt zlib
+
+echo "[zelretch] Installing Python requirements..."
+pip install -r requirements.txt
+
+if [ -f optional-requirements.txt ] ; then
+  pip install -r optional-requirements.txt || echo "[zelretch] Optional deps skipped."
+fi
+
+echo "[zelretch] Starting Zelretch..."
+bash startup

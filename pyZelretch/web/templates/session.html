@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Zelretch &middot; Session{% endblock %}
+{% block content %}
+<h1>Step 2 - Userbot Session</h1>
+<p>The session string is what lets Zelretch log in as your Telegram account.
+Treat it like a password - anyone with this string can act as you on
+Telegram.</p>
+
+<form method="post" action="/session" autocomplete="off">
+  <fieldset>
+    <legend>Kurigram Session</legend>
+    <label>Kurigram Session String <span class="req">*</span>
+      <textarea name="SESSION" rows="4" required
+                placeholder="{{ '********' if vars.SESSION else 'Paste your session string here...' }}">{{ '' if vars.SESSION else '' }}</textarea>
+      <small>Generate one with the bundled <code>sessiongen</code> script or use the in-wizard generator below.</small>
+      {% if errors and errors.SESSION %}<small class="err">{{ errors.SESSION }}</small>{% endif %}
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Runtime Preferences</legend>
+    {% for entry in schema if entry.category == 'runtime' %}
+      <label>{{ entry.label }}
+        {% if entry.cast == 'bool' %}
+          <select name="{{ entry.key }}">
+            <option value="true"  {% if vars[entry.key] %}selected{% endif %}>Yes</option>
+            <option value="false" {% if not vars[entry.key] %}selected{% endif %}>No</option>
+          </select>
+        {% else %}
+          <input type="text" name="{{ entry.key }}"
+                 value="{{ vars[entry.key] if vars[entry.key] else '' }}"
+                 placeholder="{{ entry.placeholder or '' }}">
+        {% endif %}
+        <small>{{ entry.help }}</small>
+        {% if errors and errors[entry.key] %}<small class="err">{{ errors[entry.key] }}</small>{% endif %}
+      </label>
+    {% endfor %}
+  </fieldset>
+
+  <div class="actions">
+    <button type="submit" class="primary">Save &amp; Continue &rarr;</button>
+    <a href="/core" class="link-btn">&larr; Back to Core</a>
+  </div>
+</form>
+
+<details class="generate">
+  <summary>Generate a session string with the in-wizard tool</summary>
+  <p>Provide your API credentials and phone number. The login code will be
+  printed in the server log - copy it back here to complete the generation.</p>
+  <form method="post" action="/api/generate-session" id="gen-form">
+    <label>API ID <input type="number" name="API_ID" required></label>
+    <label>API HASH <input type="text" name="API_HASH" required></label>
+    <label>Phone (international format) <input type="tel" name="PHONE" placeholder="+1..." required></label>
+    <button type="submit" class="secondary">Start Generation</button>
+  </form>
+</details>
+{% endblock %}

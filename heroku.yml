@@ -1,0 +1,7 @@
+# Zelretch - UserBot
+# Heroku container manifest.
+build:
+  docker:
+    web: Dockerfile
+run:
+  web: python zelretch.py

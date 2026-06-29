@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Zelretch - UserBot
+# Copyright (C) 2021-2026 TeamUltroid (original) / Zelretch Maintainers (rewrite)
+#
+# This file is a part of < https://github.com/TeamUltroid/Ultroid/ > (original)
+# Rewritten for Kurigram by the Zelretch project.
+# Licensed under the GNU Affero General Public License v3 or later.
+
+# One-command entry point.
+# Usage:  bash startup
+#
+# This script:
+#   1. Sources .env if present (legacy compat - no longer required).
+#   2. Runs the bundled Python launcher (zelretch.py) which auto-installs
+#      dependencies and starts either the web setup wizard or the bot.
+
+set -e
+
+echo "
+            ┏┳┓╋┏┓╋╋╋╋┏┓┏┓
+            ┃┃┣┓┃┗┳┳┳━╋╋┛┃
+            ┃┃┃┗┫┏┫┏┫╋┃┃╋┃
+            ┗━┻━┻━┻┛┗━┻┻━┛
+
+      Zelretch - Kurigram UserBot
+      Based on Ultroid (C) TeamUltroid
+"
+
+cd "$(dirname "$0")"
+
+# Legacy compatibility: load .env if it exists (the wizard will import its
+# values into the DB on first run).
+if [ -f .env ] ; then
+  set -o allexport
+  source .env
+  set +o allexport
+fi
+
+# Pick the right Python.
+PY="${PYTHON:-python3}"
+command -v "$PY" >/dev/null 2>&1 || PY="python"
+
+# Multi-client mode (legacy Ultroid feature).
+if [ -n "$SESSION1" ] ; then
+  echo "[zelretch] Multi-client mode detected - launching multi_client.py"
+  exec "$PY" multi_client.py
+fi
+
+exec "$PY" zelretch.py
