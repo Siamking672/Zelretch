@@ -1,0 +1,19 @@
+# Zelretch - UserBot
+# .gitattributes - track binary assets via Git LFS (so HF Spaces / GitHub accept them)
+
+# Fonts
+resources/fonts/*.ttf filter=lfs diff=lfs merge=lfs -text
+resources/fonts/*.otf filter=lfs diff=lfs merge=lfs -text
+
+# Images
+resources/extras/*.jpg filter=lfs diff=lfs merge=lfs -text
+resources/extras/*.png filter=lfs diff=lfs merge=lfs -text
+resources/extras/*.jpeg filter=lfs diff=lfs merge=lfs -text
+
+# Session files (never commit these!)
+*.session filter=lfs diff=lfs merge=lfs -text
+*.session-journal filter=lfs diff=lfs merge=lfs -text
+
+# SQLite databases
+*.db filter=lfs diff=lfs merge=lfs -text
+*.sqlite filter=lfs diff=lfs merge=lfs -text
